@@ -1,0 +1,63 @@
+/* Page background and layout */
+.PageContainer {
+  min-height: 1200px;
+  display: flex;
+  flex-direction: column;
+  background: hwb(206 92% 0%);
+  margin-top: -45px;
+}
+
+/* 3-column grid */
+.MainLayout {
+  display: grid;
+  grid-template-columns: 200px 1fr 200px;
+  gap: 16px;
+  flex: 1;
+  margin: 16px;
+  border: 2px solid #333;
+  border-radius: 8px;
+  background: #cce6ff;
+}
+
+/* Sidebar styles */
+.Sidebar {
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #333;
+  border-radius: 8px;
+/*   min-height: 400px; */
+  font-weight: bold;
+}
+
+/* Center content */
+.CenterContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.MainSection {
+  background: #dfb3fd;
+  padding: 32px;
+  border-radius: 8px;
+  /* min-height: 400px; */
+  width: 100%;
+  border: 2px solid #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.Footer {
+  background: #f01911;
+  padding: 12px 24px;
+  border: 1px solid #333;
+  margin: 0 16px 16px 16px;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: bold;
+}
