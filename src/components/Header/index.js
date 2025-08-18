@@ -6,7 +6,7 @@ const Header = ({ onLoginClick }) => (
     <div className={css.Logo}>UNEGUI.CLONE</div>
     <input
       type="text"
-      placeholder="Хайх......."
+      placeholder="Хайх.....sxsxax."
       className={css.SearchBar}
     />
     <button className={css.LoginBtn} onClick={onLoginClick}>
