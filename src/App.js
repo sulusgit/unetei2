@@ -8,20 +8,16 @@ import MainLayout from './components/MainLayout';
 
 
 
-
-
-
-
 function App() {
   const [showLogin, setShowLogin] = useState(false);
 
   return (
   <div className="App">
       <Header />
-      <CategoryBar />     
-      <MainLayout />
- 
+      <CategoryBar />   
       <Header onLoginClick={() => setShowLogin(true)} />
+      <MainLayout /> 
+   
        
 
       {showLogin && (

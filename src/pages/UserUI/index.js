@@ -1,4 +1,4 @@
-/* Not connected anywhere we will use this component */
+/* Not connected anywhere we will use this component  it appers when the user LOGIN*/
 import React, { useState } from 'react';
 import styles from './style.module.css';
 

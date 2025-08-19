@@ -1,22 +1,36 @@
-/* Page background and layout */
-.PageContainer {
-  min-height: 1200px;
-  display: flex;
-  flex-direction: column;
-  background: hwb(206 92% 0%);
-  margin-top: -45px;
-}
-
 /* 3-column grid */
-.MainLayout {
+ .MainLayout {
   display: grid;
   grid-template-columns: 200px 1fr 200px;
-  gap: 16px;
-  flex: 1;
+  gap: 8px;              /* the visible space between cards */
+  padding: 16px;
   margin: 16px;
-  border: 2px solid #333;
+  margin-top: 200px; /* ????????eniin marginiin ynzlii geheer BategoryBar dagaj guigeed bnaa???????? */
+  /* border: 2px solid #333; */ /*--> will we not use just recognize*/
+/*   border-radius: 8px; */
+  background: whitesmoke /*  #cce6ff;               <--*/
+}
+
+.card {
+  background: #f5f5f5;
+  border: 1px solid #000;
   border-radius: 8px;
-  background: #cce6ff;
+  padding: 20px;
+  display: flex;          /* purely for centering demo text */
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+/* keep padding/borders inside the assigned width */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* let grid children shrink inside their tracks instead of overflowing */
+.MainLayout > * { min-width: 0; }
+
+
+.MainLayout .main-content {
+  background: #e1b3f9; /* purple for main section */
 }
 
 /* Sidebar styles */
@@ -50,7 +64,6 @@
   flex-direction: column;
   align-items: center;
 }
-
 
 .Footer {
   background: #f01911;
