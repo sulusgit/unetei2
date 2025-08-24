@@ -1,0 +1,42 @@
+<!doctype html><html><head>
+  <meta charset="utf-8"><title>Sign up - PeerMarket</title>
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <script src="/assets/js/api.js"></script>
+  <script src="/assets/js/auth.js"></script>
+  <script src="/assets/js/ui.js"></script>
+</head><body>
+  <div class="container" id="hdr"></div>
+  <div class="container" style="max-width:420px;margin-top:24px">
+    <div class="card">
+      <h3>Sign up</h3>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <input id="name" placeholder="name (optional)">
+        <input id="email" placeholder="email">
+        <input id="password" placeholder="password" type="password">
+        <button class="primary" id="signup">Create account</button>
+        <div class="muted">Have an account? <a href="/login.html">Login</a></div>
+      </div>
+    </div>
+  </div>
+  <div id="ftr"></div>
+  <div class="container page"></div>
+  <script>
+  (async () => {
+    await UI.bootHeader();
+    UI.mountFooter();
+    try { await AUTH.ensureGuest(); } catch { return; }
+
+    const next = new URLSearchParams(location.search).get("next") || "/my.html";
+    document.getElementById('signup').onclick = async () => {
+      try {
+        const n = document.getElementById('name').value.trim();
+        const e = document.getElementById('email').value.trim();
+        const p = document.getElementById('password').value;
+        await AUTH.register(e, p, n);
+        await AUTH.login(e, p);
+        location.href = next;
+      } catch (err) { alert(err.message || "Signup failed"); }
+    };
+  })();
+</script>
+</body></html>

@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>PeerMarket</title>
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <script src="/assets/js/api.js"></script>
+  <script src="/assets/js/auth.js"></script>
+  <script src="/assets/js/ui.js"></script>
+  <script src="/assets/js/home.js"></script>
+</head>
+<body>
+  <div class="container" id="hdr"></div>
+
+  <div class="container">
+    <div class="searchbar" style="flex-wrap:wrap">
+      <input id="q" placeholder="Search...">
+      <select id="category" style="min-width:180px">
+        <option value="">All categories</option>
+      </select>
+      <input id="city" placeholder="City e.g. Ulaanbaatar" style="min-width:180px">
+      <input id="min_price" type="number" min="0" step="1" placeholder="Min ₮" style="width:120px">
+      <input id="max_price" type="number" min="0" step="1" placeholder="Max ₮" style="width:120px">
+      <select id="sort">
+        <option value="newest">Newest</option>
+        <option value="price_asc">Price ↑</option>
+        <option value="price_desc">Price ↓</option>
+      </select>
+      <button class="primary" id="go">Search</button>
+    </div>
+  </div>
+
+  <div class="container page">
+    <div id="results" class="listings"></div>
+    <div id="pager" style="display:flex;gap:8px;margin:16px 0;align-items:center">
+      <button id="prev">← Prev</button>
+      <span id="pageinfo" class="muted" style="margin:0 8px"></span>
+      <button id="next">Next →</button>
+    </div>
+  </div>
+
+  <div id="ftr"></div>
+
+  <div id="ban-left"  class="banner-fixed left"></div>
+  <div id="ban-right" class="banner-fixed right"></div>
+
+  <script>
+    (async () => {
+      await UI.bootHeader('home');
+      UI.mountFooter();
+      UI.renderBanner('left',  document.getElementById('ban-left'));
+      UI.renderBanner('right', document.getElementById('ban-right'));
+      await HOME.init();
+    })();
+  </script>
+</body>
+</html>

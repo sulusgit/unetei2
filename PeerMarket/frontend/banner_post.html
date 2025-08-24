@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Buy a Side Banner - PeerMarket</title>
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <script src="/assets/js/api.js"></script>
+  <script src="/assets/js/auth.js"></script>
+  <script src="/assets/js/ui.js"></script>
+  <script src="/assets/js/banner_post.js"></script>
+  <style>
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media (max-width: 800px){ .grid{grid-template-columns:1fr} }
+    .hint{color:#666}
+  </style>
+</head>
+<body>
+  <div id="hdr"></div>
+
+  <div class="container" style="max-width:820px;margin-top:20px">
+    <div class="card">
+      <h2 style="margin-top:0">Purchase a Side Banner</h2>
+      <div class="hint" style="margin-bottom:10px">
+        Upload a tall banner (recommended 160×600–120×600). Your order is pending admin approval.
+      </div>
+
+      <div class="grid">
+        <div>
+          <label>Position</label>
+          <select id="position">
+            <option value="left">Left side</option>
+            <option value="right">Right side</option>
+          </select>
+        </div>
+        <div>
+          <label>Target click URL</label>
+          <input id="target" placeholder="https://example.com">
+        </div>
+        <div>
+          <label>Start date</label>
+          <input id="start" type="date">
+        </div>
+        <div>
+          <label>End date</label>
+          <input id="end" type="date">
+        </div>
+      </div>
+
+      <div style="margin-top:12px">
+        <label>Banner image (jpg/png/webp ≤ 5MB)</label>
+        <input id="image" type="file" accept="image/*">
+      </div>
+
+      <div style="margin-top:16px;display:flex;gap:10px">
+        <button class="primary" id="submit">Submit</button>
+        <a href="/index.html"><button type="button">Cancel</button></a>
+      </div>
+
+      <div id="msg" class="hint" style="margin-top:10px"></div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h3 style="margin:6px 0">My Banners</h3>
+      <div id="mine" class="rows" style="display:grid;gap:10px"></div>
+    </div>
+  </div>
+
+  <div id="ftr"></div>
+  <div class="container page"></div>
+
+  <script>
+    (async () => {
+      await UI.bootHeader('home');
+      UI.mountFooter();
+      try { await AUTH.requireAuth(); } catch { return; }
+      await BANNER_POST.init();
+    })();
+  </script>
+</body>
+</html>

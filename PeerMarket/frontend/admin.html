@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Admin Dashboard - PeerMarket</title>
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <script src="/assets/js/api.js"></script>
+  <script src="/assets/js/auth.js"></script>
+  <script src="/assets/js/admin_reports.js"></script>
+  <style>
+    .cards{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+    @media (max-width:1280px){.cards{grid-template-columns:repeat(5,1fr)}}
+    @media (max-width:1100px){.cards{grid-template-columns:repeat(4,1fr)}}
+    @media (max-width:900px){ .cards{grid-template-columns:repeat(3,1fr)}}
+    @media (max-width:680px){ .cards{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:420px){ .cards{grid-template-columns:1fr}}
+    .card-btn{display:block;text-align:left;border:1px solid #eee;border-radius:10px;padding:10px;background:#fff;cursor:pointer}
+    .card-btn h4{margin:0 0 6px;font-size:1em}
+    .muted{color:#666}
+    dialog::backdrop{background:rgba(0,0,0,.35)}
+  </style>
+</head>
+<body>
+  <div id="hdr"></div>
+
+  <div class="container page" style="margin-top:16px">
+    <h2 style="margin:0 0 10px">Reports</h2>
+    <div id="reports" class="cards"></div>
+  </div>
+
+  <div id="ftr"></div>
+
+  <dialog id="dlg-report" style="border:1px solid #ddd;border-radius:10px;padding:0;max-width:560px;width:100%">
+    <div style="padding:12px 14px;border-bottom:1px solid #eee;font-weight:700">Report</div>
+    <form method="dialog">
+      <div style="padding:14px">
+        <div class="muted" id="rep-meta"></div>
+        <div id="rep-reason" style="white-space:pre-wrap;margin-top:10px"></div>
+        <div style="margin-top:12px">
+          <label for="rep-action-reason">Deactivation reason (emailed to owner)</label>
+          <textarea id="rep-action-reason" rows="5" maxlength="1000" style="width:100%"></textarea>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;padding:12px 14px;border-top:1px solid #eee">
+        <a href="#" id="rep-cancel">Close</a>
+        <a href="#" id="rep-dismiss" class="primary" style="background:#777;border-color:#777">Disregard</a>
+        <a href="#" id="rep-deactivate" class="primary">Deactivate listing</a>
+      </div>
+    </form>
+  </dialog>
+
+  <script>
+    (async () => {
+      await UI.bootHeader('home');   
+      UI.mountFooter();
+      await ADMIN_REPORTS.init();    
+    })();
+  </script>
+</body>
+</html>

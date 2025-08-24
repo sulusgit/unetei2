@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>My Listings - PeerMarket</title>
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <style>
+    .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+    .rows{display:grid;gap:12px}
+    .row{border:1px solid #eee;border-radius:10px;padding:12px;display:grid;grid-template-columns:120px 1fr;gap:12px}
+    .row img{width:120px;height:90px;object-fit:cover;border-radius:8px;background:#fafafa}
+    .row h4{margin:0 0 6px 0}
+    .row .meta{color:#666;font-size:.9em}
+    .row .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .pager{display:flex;gap:8px;margin:16px 0}
+    dialog{border:1px solid #ddd;border-radius:10px;padding:0}
+    dialog .hd{padding:12px 14px;border-bottom:1px solid #eee;font-weight:700}
+    dialog form, dialog .body{padding:14px}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media (max-width: 800px){ .grid2{grid-template-columns:1fr} }
+    .thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px}
+    .thumb{position:relative;border:1px solid #eee;border-radius:8px;padding:6px}
+    .thumb img{width:100%;height:90px;object-fit:cover;border-radius:6px}
+    .thumb button{position:absolute;top:6px;right:6px;border:0;background:#000;color:#fff;padding:4px 6px;border-radius:6px;cursor:pointer}
+  </style>
+  <script src="/assets/js/api.js"></script>
+  <script src="/assets/js/auth.js"></script>
+  <script src="/assets/js/ui.js"></script>
+
+  <script>
+    (async () => {
+      try {
+        const u = await AUTH.me();
+        if (u && u.is_admin) {
+          location.href = "/admin.html";
+        }
+      } catch {}
+    })();
+  </script>
+
+  <script src="/assets/js/my.js"></script>
+</head>
+<body>
+  <div id="hdr"></div>
+
+  <div class="container" style="margin-top:16px">
+    <h2 style="margin:6px 0">My Listings</h2>
+    <div class="toolbar">
+      <select id="status">
+        <option value="">All</option>
+        <option value="active">Active</option>
+        <option value="sold">Sold</option>
+        <option value="archived">Archived</option>
+        <option value="expired">Expired</option>
+      </select>
+      <button class="primary" id="refresh">Refresh</button>
+      <a class="button" href="/post.html"><button>+ New listing</button></a>
+    </div>
+
+    <div id="rows" class="rows"></div>
+    <div id="pager" class="pager"></div>
+  </div>
+
+  <dialog id="dlg-edit">
+    <div class="hd">Edit listing</div>
+    <form method="dialog">
+      <div class="body">
+        <div class="grid2">
+          <div><label>Title</label><input id="e-title" maxlength="140"></div>
+          <div><label>Price (₮)</label><input id="e-price" type="number" min="0" step="1"></div>
+          <div><label>Category ID</label><input id="e-category" type="number" min="0" step="1" placeholder="optional"></div>
+          <div><label>City</label><input id="e-city" placeholder="optional"></div>
+        </div>
+        <div style="margin-top:10px">
+          <label>Description</label>
+          <textarea id="e-desc" rows="6" maxlength="5000" style="width:100%"></textarea>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;padding:12px 14px;border-top:1px solid #eee">
+        <button id="e-cancel">Cancel</button>
+        <button class="primary" id="e-save">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="dlg-images">
+    <div class="hd">Manage images</div>
+    <div class="body">
+      <div>
+        <input id="add-images" type="file" multiple accept="image/*">
+        <div class="muted">Allowed: jpg/png/webp up to 5MB each. Max 8 total.</div>
+      </div>
+      <div id="img-list" class="thumbs" style="margin-top:10px"></div>
+    </div>
+    <div style="display:flex;gap:10px;justify-content:flex-end;padding:12px 14px;border-top:1px solid #eee">
+      <button id="i-close">Close</button>
+    </div>
+  </dialog>
+
+  <div id="ftr"></div>
+  <div class="container page"></div>
+  <script>
+    (async () => {
+      await UI.bootHeader('my');
+      UI.mountFooter();
+      const user = await AUTH.requireAuth();
+      await MY.init();
+    })();
+  </script>
+</body>
+</html>

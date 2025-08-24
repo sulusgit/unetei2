@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Admin – Banners</title>
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <script src="/assets/js/api.js"></script>
+  <script src="/assets/js/auth.js"></script>
+  <script src="/assets/js/admin_banners.js"></script>
+  <style>
+    .cards{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+    @media (max-width:1280px){.cards{grid-template-columns:repeat(5,1fr)}}
+    @media (max-width:1100px){.cards{grid-template-columns:repeat(4,1fr)}}
+    @media (max-width:900px){ .cards{grid-template-columns:repeat(3,1fr)}}
+    @media (max-width:680px){ .cards{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:420px){ .cards{grid-template-columns:1fr}}
+    .card-btn{display:block;text-align:left;border:1px solid #eee;border-radius:10px;padding:10px;background:#fff}
+    .card-btn h4{margin:0 0 6px;font-size:1em}
+    .muted{color:#666}
+  </style>
+</head>
+<body>
+  <div id="hdr"></div>
+
+  <div class="container page" style="margin-top:16px">
+    <div style="margin-bottom:8px"><a href="/admin.html">← Back to dashboard</a></div>
+    <h2 style="margin:0 0 10px">Banners</h2>
+    <div id="banners" class="cards"></div>
+  </div>
+
+  <div id="ftr"></div>
+
+  <script>
+    (async () => {
+      await UI.bootHeader('home');
+      UI.mountFooter();
+      await ADMIN_BANNERS.init();
+    })();
+  </script>
+</body>
+</html>
